@@ -17,7 +17,7 @@ PlayerSettings:
   defaultScreenWidth: 1024
   defaultScreenHeight: 768
   defaultScreenWidthWeb: 1024
-  defaultScreenHeightWeb: 576
+  defaultScreenHeightWeb: 640
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
   m_ActiveColorSpace: 0
@@ -151,7 +151,8 @@ PlayerSettings:
   psp2PackagedResourcesPath: 
   flashStrippingLevel: 2
   spritePackerPolicy: 
-  scriptingDefineSymbols: {}
+  scriptingDefineSymbols:
+    2: 
   metroPackageName: teamdinosaur-sagdc9
   metroPackageLogo: 
   metroPackageLogo140: 
