@@ -470,6 +470,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 100002, guid: 82aba7d089acee7468b9d26ebb89a67b, type: 2}
+  kids: {fileID: 100000, guid: fe4ec91133194a543b90c3c670acb6e3, type: 2}
 --- !u!4 &1091687786
 Transform:
   m_ObjectHideFlags: 0

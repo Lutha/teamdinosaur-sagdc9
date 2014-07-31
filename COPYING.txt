@@ -1,1 +1,14 @@
 All the code and stuff I wrote is "Copyright (c) 2014 Lutha Mahtin". This license may be updated in the future.
+
+===
+
+The file located at "Assets/Sprites/2kids-gaming.png" is Copyright (c) 2008, by Flickr user "dustincoliver". The file was downloaded on July 23, 2014, from here:
+
+https://www.flickr.com/photos/dustincoliver/3065115224/
+
+It is licensed under Creative Commons BY-ND 2.0:
+
+https://creativecommons.org/licenses/by-nc/2.0/
+
+The file has been modified from the original: it has been resized, cropped, and some kind of pixel filter was applied.
+
