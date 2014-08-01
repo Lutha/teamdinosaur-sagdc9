@@ -2,18 +2,12 @@
 using System.Collections;
 
 public class GameController : MonoBehaviour {
-	
-	// cheater constants
-	const int	KIDPIC 	= 0,
-					GIRLTALK	= 1,
-					BOYTALK 	= 2;
-	
-	// real variables
 	public GameObject enemy, kids;
-	Object[] stateObjs;
-	float[] enemyYPos;
+	private Object[] stateObjs;
+	private float[] enemyYPos;
 	private static int gameState, enemiesLeft;
-	int iEnemies;
+	private int iState;
+	private bool cutsceneStarted, cutsceneFinished;
 	
 	private void NextGameState () {
 		switch (gameState) {
@@ -27,22 +21,32 @@ public class GameController : MonoBehaviour {
 				break;
 			
 			case 1:			// set up cutscene
-				// cleanup
-				stateObjs = new GameObject[3];
+				stateObjs = null;
 				enemyYPos = null;
 				enemiesLeft = 0;
-				
-				// new
+				iState = 0;
+				cutsceneStarted = false;
+				cutsceneFinished = false;
+				break;
+			
+			case 2:
+				// welp
 				break;
 		}
 		gameState++;
-		// Debug.Log ("Entering gameState " + gameState);
+		Debug.Log ("Entering gameState " + gameState);
 		return;
+	}
+	
+	private IEnumerator Cutscene () {
+		yield return new WaitForSeconds (2.0f);
+		Instantiate (kids, new Vector3 (0,0,-5), Quaternion.identity);
+		cutsceneFinished = true;
 	}
 	
 	public static void EnemyDestroyed () {
 		enemiesLeft--;
-		// Debug.Log ("Enemies left: " + enemiesLeft);
+		Debug.Log ("Enemies left: " + enemiesLeft);
 		return;
 	}
 	
@@ -56,27 +60,28 @@ public class GameController : MonoBehaviour {
 		switch (gameState) {
 			case 0:
 				// spawn replacement enemies until player destroys three.
-				if (stateObjs[iEnemies] == null) {
+				if (stateObjs[iState] == null) {
 					GameObject gObj = (GameObject)Instantiate (
 							enemy,
-							new Vector3 (10.5f, enemyYPos[iEnemies], 0f),
+							new Vector3 (10.5f, enemyYPos[iState], 0f),
 							Quaternion.identity);
 					gObj.SendMessage ("SetBehavior", 1);
-					stateObjs[iEnemies] = gObj;
+					stateObjs[iState] = gObj;
 					gObj = null;
 				}
 				
 				// continue? see if player has destroyed three
 				if (enemiesLeft > 3) {
-					iEnemies = (iEnemies + 1) % 3;
+					iState = (iState + 1) % 3;
 					return;
 				} else {
+					
 					break;
 				}
 				
 			case 1:
 				// continue? wait until player destroys all of first wave.
-				if (enemiesLeft > 0) {
+				if (enemiesLeft > 1) {
 					return;
 				} else {
 					break;
@@ -84,14 +89,19 @@ public class GameController : MonoBehaviour {
 				
 			case 2:
 				// show cutscene
-				return;
+				if (! cutsceneStarted) {
+					StartCoroutine (Cutscene ());
+					cutsceneStarted = true;
+					return;
+				}
+				if (! cutsceneFinished) {
+					return;
+				} else {
+					break;
+				}
 				
 			case 3:
-				// second wave (AWESOME wave)
-				return;
-				
-			case 4:
-				// boss
+				// faaaaart
 				return;
 		}
 		
